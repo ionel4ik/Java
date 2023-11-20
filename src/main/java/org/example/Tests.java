@@ -48,6 +48,13 @@ public class Tests {
         assertEquals(29, variant.switchTask(13));
     }
 
+     @Test
+    public void testSwitchTaskInvalidMonth() {
+        Variant4 variant = new Variant4();
+        // Testing invalid month
+        assertThrows(IllegalArgumentException.class, () -> variant.switchTask(13));
+    }
+    
     @Test
     public void testForTask() {
         Variant4 variant = new Variant4();
