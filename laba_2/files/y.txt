@@ -1,0 +1,7 @@
+name: Tanya
+surname: Tkach
+middleName: Olegivna
+age: 34
+phoneNumber: 990167811
+salary: 4500.0
+passportNumber: 18035
