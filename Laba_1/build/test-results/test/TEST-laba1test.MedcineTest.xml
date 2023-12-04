@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="laba1test.MedcineTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-04T09:36:57" hostname="DESKTOP-6GTBM1L" time="0.027">
+  <properties/>
+  <testcase name="medicineEqualsTest[0](Laykozut | Unisec | Germany | 125.0 | 5, Laykozut | Unisec | Germany | 125.0 | 5)" classname="laba1test.MedcineTest" time="0.016"/>
+  <testcase name="medicineNotEqualsTest[0](Laykozut | Unisec | Germany | 125.0 | 5, Redflik |   |   | 0.0 | 8)" classname="laba1test.MedcineTest" time="0.001"/>
+  <testcase name="medicineToStringTest[0](Laykozut | Unisec | Germany | 125.0 | 5, Laykozut | Unisec | Germany | 125.0 | 5)" classname="laba1test.MedcineTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
