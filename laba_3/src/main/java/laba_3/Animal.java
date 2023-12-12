@@ -1,14 +1,25 @@
 package laba_3;
 
+import jakarta.validation.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class Animal implements Comparable<Animal> {
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
     private String kind;
+    @Positive(message = "Weight must be a positive number")
+
     private float weight;
+    @Positive(message = "Height must be a positive number")
+
     private float height;
+    @Positive(message = "Width must be a positive number")
     private float width;
 
     private List<Medicine> medicines;
@@ -70,18 +81,21 @@ public class Animal implements Comparable<Animal> {
      */
     public static class AnimalBuilder {
 
-        /**
-         * @param name is mandatory, others are optional
-         */
 
         private String name;
 
         private String kind = " ";
+
+
         private float weight = 0;
+
+
         private float height = 0;
+
+
         private float width = 0;
 
-        private List<Medicine> medicines = new ArrayList<>(); // @
+        private List<@Valid Medicine> medicines = new ArrayList<>();
 
 
 
@@ -95,7 +109,23 @@ public class Animal implements Comparable<Animal> {
 
 
         // Setters:
+        private void validate() throws IllegalArgumentException{
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
 
+            Animal animal = new Animal(this);
+            Set<ConstraintViolation<Animal>> violations = validator.validate(animal);
+
+            StringBuilder mb = new StringBuilder();
+
+            for(ConstraintViolation<Animal> violation: violations){
+                mb.append("Error for field ").append(violation.getPropertyPath()).append(": ").append(violation.getInvalidValue()).append(" ").append(violation.getMessage())
+                ;			}
+
+            if(!mb.isEmpty()){
+                throw new IllegalArgumentException(mb.toString());
+            }
+        }
 
         /**
          * Builder kind setter
@@ -149,6 +179,7 @@ public class Animal implements Comparable<Animal> {
          * @return instance of Employee class
          */
         public Animal build() {
+            validate();
             return new Animal(this);
         }
 

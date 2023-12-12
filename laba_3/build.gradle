@@ -12,8 +12,12 @@ repositories {
 dependencies {
 // https://mvnrepository.com/artifact/org.testng/testng
     testImplementation group: 'org.testng', name: 'testng', version: '7.6.1'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+    implementation 'org.glassfish.expressly:expressly:5.0.0'
+
 }
 
 test {
     useTestNG()
 }
+

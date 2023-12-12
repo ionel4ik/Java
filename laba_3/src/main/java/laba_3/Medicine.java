@@ -1,21 +1,32 @@
 package laba_3;
 
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+
 import java.util.Objects;
+import java.util.Set;
 
 
 public class Medicine implements Comparable<Medicine>{
+    @NotBlank(message = "Name is mandatory")
     private String name;
     private String company;
     private String country;
+    @Positive(message = "Dose amount must be a positive number")
     private float doseAmount;
+    @Positive(message = "Price must be a positive number")
     private double price;  // !!!
+    @PositiveOrZero(message = "Amount must be a positive number")
+    private int amount = 0;
     private String category;
 
-
-
     // final
-    private int amount;
 
     /**
      * Medicine constructor
@@ -76,13 +87,12 @@ public class Medicine implements Comparable<Medicine>{
         /**
          * @param name is mandatory, others are optional
          */
-
         private String name;
         private String company = " ";
         private String country = " ";
         private float doseAmount = 0;
+        private double price = 0.0;
         private int amount = 0;
-        private double price = 0.0 ;
         private String category = "NULL";
 
 
@@ -127,7 +137,23 @@ public class Medicine implements Comparable<Medicine>{
             this.doseAmount = doseAmount;
             return this;
         }
+        private void validate() throws IllegalArgumentException{
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
 
+            Medicine medicine = new Medicine(this);
+            Set<ConstraintViolation<Medicine>> violations = validator.validate(medicine);
+
+            StringBuilder mb = new StringBuilder();
+
+            for(ConstraintViolation<Medicine> violation: violations){
+                mb.append("Error for field ").append(violation.getPropertyPath()).append(": ").append(violation.getInvalidValue()).append(" ").append(violation.getMessage())
+                ;			}
+
+            if(!mb.isEmpty()){
+                throw new IllegalArgumentException(mb.toString());
+            }
+        }
         /**
          * Builder price setter
          * @param
@@ -160,6 +186,7 @@ public class Medicine implements Comparable<Medicine>{
          * @return instance of Medicine class
          */
         public Medicine build(){
+            validate();
             return new Medicine(this);
         }
 

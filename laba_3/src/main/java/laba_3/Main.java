@@ -128,31 +128,31 @@ public class Main {
 
         AnimalService service = new AnimalService(animal);
 
-//        Collections.sort(medicines);
-//        for(Medicine medicine : medicines){
-//            System.out.println(medicine);
-//        }
-//        System.out.println();
-//        Collections.sort(medicines, new MedicineComparator());
-//        for(Medicine medicine : medicines){
-//            System.out.println(medicine);
-//        }
+        Collections.sort(medicines);
+        for(Medicine medicine : medicines){
+            System.out.println(medicine);
+        }
+        System.out.println();
+        Collections.sort(medicines, new MedicineComparator());
+        for(Medicine medicine : medicines){
+            System.out.println(medicine);
+        }
 
 
-//        List<Animal> animals = new ArrayList<>();
-//        animals.add(animal1);
-//        animals.add(animal2);
-//        animals.add(animal3);
-//        animals.add(animal4);
-//
-//        for(Animal a : animals){
-//            System.out.println(a);
-//        }
+        List<Animal> animals = new ArrayList<>();
+        animals.add(animal1);
+        animals.add(animal2);
+        animals.add(animal3);
+        animals.add(animal4);
 
-//        Collections.sort(animals);
-//        for(Animal a : animals){
-//            System.out.println(a);
-//        }
+        for(Animal a : animals){
+            System.out.println(a);
+        }
+
+        Collections.sort(animals);
+        for(Animal a : animals){
+            System.out.println(a);
+        }
 
 
 

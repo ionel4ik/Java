@@ -1,16 +1,31 @@
 package laba_3;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+
 import java.util.Objects;
+import java.util.Set;
+
 
 
 
 public class Employee {
+    @NotBlank(message = "Name is mandatory")
     private String name;
     private String surname;
     private String middleName;
+    @Positive(message = "Age must be a positive number")
     private int age;
+    @Pattern(regexp = "\\d{10}", message = "Phone number must be a 10-digit number")
     private String phoneNumber;
+    @Positive(message = "Salary must be a positive number")
     private float salary;
+    @Pattern(regexp = "\\d{10}", message = "Passport number must be a 9-digit number")
     private String passportNumber;
 
 
@@ -68,12 +83,23 @@ public class Employee {
          * @param name is mandatory, others are optional
          */
 
+
         private String name;
+
         private String surname = " ";
+
         private String middleName = " ";
+
+
         private int age = 0;
-        private String phoneNumber = " " ;
+
+
+        private String phoneNumber = " ";
+
+
         private float salary = 0;
+
+
         private String passportNumber = " ";
 
 
@@ -141,7 +167,23 @@ public class Employee {
             this.salary = salary;
             return this;
         }
+        private void validate() throws IllegalArgumentException{
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
 
+            Employee employee = new Employee(this);
+            Set<ConstraintViolation<Employee>> violations = validator.validate(employee);
+
+            StringBuilder mb = new StringBuilder();
+
+            for(ConstraintViolation<Employee> violation: violations){
+                mb.append("Error for field ").append(violation.getPropertyPath()).append(": ").append(violation.getInvalidValue()).append(" ").append(violation.getMessage())
+                ;			}
+
+            if(!mb.isEmpty()){
+                throw new IllegalArgumentException(mb.toString());
+            }
+        }
         /**
          * Builder passportNumber setter
          * @param passportNumber
@@ -157,7 +199,7 @@ public class Employee {
          * @return instance of Employee class
          */
         public Employee build(){
-
+            validate();
             return new Employee(this);
         }
 
