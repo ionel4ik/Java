@@ -2,7 +2,9 @@ package laba_2;
 
         import com.fasterxml.jackson.core.type.TypeReference;
         import com.fasterxml.jackson.databind.ObjectMapper;
+        import com.fasterxml.jackson.databind.SerializationFeature;
         import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+        import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
         import java.io.File;
         import java.io.IOException;
@@ -11,15 +13,20 @@ package laba_2;
         import java.util.List;
 
 public class ForXml<T> implements Interface<T> {
+    private XmlMapper xmlMapper;
+    public ForXml() {
+        xmlMapper = new XmlMapper();
+        xmlMapper.registerModule(new JavaTimeModule());
+        xmlMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+    }
     @Override
     public void objectWriting(T entity, String fileName) throws IOException {
-        XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.writeValue(new File( fileName), entity);
     }
 
     @Override
     public T objectReading(String fileName, Class<T> name) throws IOException {
-        XmlMapper xmlMapper = new XmlMapper();
         String xml = new String(Files.readAllBytes(Paths.get( fileName)));
         return xmlMapper.readValue(xml, name);
     }

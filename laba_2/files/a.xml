@@ -1,1 +1,7 @@
-<Medicine><name>Laykozut</name><company>Unisec</company><country>Germany</country><doseAmount>125.0</doseAmount><price>5</price></Medicine>
+<Medicine>
+  <name>Laykozut</name>
+  <company>Unisec</company>
+  <country>Germany</country>
+  <doseAmount>125.0</doseAmount>
+  <price>5</price>
+</Medicine>

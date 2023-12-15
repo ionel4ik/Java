@@ -3,6 +3,8 @@ package laba_2;
 
         import com.fasterxml.jackson.databind.JavaType;
         import com.fasterxml.jackson.databind.ObjectMapper;
+        import com.fasterxml.jackson.databind.SerializationFeature;
+        import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
         import java.io.*;
         import java.lang.reflect.Field;
@@ -11,6 +13,14 @@ package laba_2;
         import java.util.List;
 
 public class ForTxt implements Interface<Employee> {
+    private ObjectMapper objectMapper;
+
+
+    public ForTxt() {
+        this.objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JSR310Module());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    }
     public void objectWriting(Employee instance, String fileName) throws  FileNotFoundException {
         Class<?> classFields = instance.getClass();
         File myFile = new File(  fileName);
@@ -34,7 +44,6 @@ public class ForTxt implements Interface<Employee> {
     public Employee objectReading(String fileName) throws IOException {
         String json = "{";
         String tempString = "";
-        ObjectMapper objectMapper = new ObjectMapper();
         List<String> allLines = Files.readAllLines(Paths.get(  fileName));
         for (String line : allLines) {
             String[] arrOfStr = line.split(":", 0);
@@ -86,7 +95,6 @@ public class ForTxt implements Interface<Employee> {
     }
 
     public List<Employee> listReading(String fileName) throws IOException{
-        ObjectMapper objectMapper = new ObjectMapper();
         JavaType type = objectMapper.getTypeFactory().constructCollectionType(List.class, Employee.class);
         String json = "[";
         String tempString = "{";

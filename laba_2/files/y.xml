@@ -1,1 +1,9 @@
-<Employee><name>Tanya</name><surname>Tkach</surname><middleName>Olegivna</middleName><age>34</age><phoneNumber>990167811</phoneNumber><salary>4500.0</salary><passportNumber>18035</passportNumber></Employee>
+<Employee>
+  <name>Tanya</name>
+  <surname>Tkach</surname>
+  <middleName>Olegivna</middleName>
+  <birthday>2004-05-26</birthday>
+  <phoneNumber>990167811</phoneNumber>
+  <salary>4500.0</salary>
+  <passportNumber>18035</passportNumber>
+</Employee>

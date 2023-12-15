@@ -2,13 +2,15 @@ package laba_2;
 
         import java.io.Serializable;
         import java.time.LocalDate;
+        import java.time.LocalDateTime;
+        import java.util.Date;
         import java.util.Objects;
 
 public class Employee {
     private String name;
     private String surname;
     private String middleName;
-    private int age;
+    private LocalDate birthday;
     private int phoneNumber;
     private float salary;
     private String passportNumber;
@@ -16,11 +18,11 @@ public class Employee {
 // конструктор для Employee
 
     public Employee(String name,String surname,String middleName,
-                     int age,int phoneNumber,float salary,String passportNumber) {
+                    LocalDate birthday,int phoneNumber,float salary,String passportNumber) {
         this.name = name;
         this.surname = surname;
         this.middleName = middleName;
-        this.age = age;
+        this.birthday = birthday;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
         this.passportNumber = passportNumber;
@@ -33,7 +35,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return name + " | " + surname + " | " + middleName + " | " + age + " | " + phoneNumber + " | " + salary + " | " + passportNumber;
+        return name + " | " + surname + " | " + middleName + " | " + birthday + " | " + phoneNumber + " | " + salary + " | " + passportNumber;
     }
 
     @Override
@@ -80,8 +82,8 @@ public class Employee {
     /**
      * age getter
      */
-    public int getAge(){
-        return age;
+    public LocalDate getBirthday(){
+        return birthday;
     }
 
     /**
@@ -128,7 +130,7 @@ public class Employee {
     /**
      * age setter
      */
-    public void setAge(int age) { this.age = age; }
+    public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
     /**
      * phone_number setter
