@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="laba1test.AnimalTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-15T15:04:04" hostname="DESKTOP-6GTBM1L" time="0.016">
+  <properties/>
+  <testcase name="animalEqualsTest[0](Chichi | Parrot | 2021-07-15 | 0.2 | 0.15 | 0.1, Chichi | Parrot | 2021-07-15 | 0.2 | 0.15 | 0.1)" classname="laba1test.AnimalTest" time="0.01"/>
+  <testcase name="animalNotEqualsTest[0](Chichi | Parrot | 2021-07-15 | 0.2 | 0.15 | 0.1, Klava |   | 2023-12-15 | 4.5 | 0.0 | 0.0)" classname="laba1test.AnimalTest" time="0.0"/>
+  <testcase name="animalToStringTest[0](Chichi | Parrot | 2021-07-15 | 0.2 | 0.15 | 0.1, Chichi | Parrot | 2021-07-15 | 0.2 | 0.15 | 0.1)" classname="laba1test.AnimalTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

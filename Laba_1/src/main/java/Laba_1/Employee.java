@@ -1,6 +1,7 @@
 package Laba_1;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class Employee {
@@ -22,11 +23,14 @@ public class Employee {
         this.phoneNumber = builder.phoneNumber;
         this.salary = builder.salary;
         this.passportNumber = builder.passportNumber;
+        this.animals = builder.animals;
     }
+
+    private List<Animal> animals;
 
     @Override
     public String toString() {
-        return name + " | " + surname + " | " + middleName + " | " + age + " | " + phoneNumber + " | " + salary + " | " + passportNumber;
+        return name + " | " + surname + " | " + middleName + " | " + age + " | " + phoneNumber + " | " + salary + " | " + passportNumber + " | " + animals;
     }
 
     @Override
@@ -61,6 +65,8 @@ public class Employee {
         private int phoneNumber = 0;
         private float salary = 0;
         private String passportNumber = " ";
+
+        private List<Animal> animals;
 
 
         /**
@@ -97,6 +103,10 @@ public class Employee {
             return this;
         }
 
+        public EmployeeBuilder setAnimals(List<Animal> animals) {
+            this.animals = animals;
+            return this;
+        }
         /**
          * Builder age setter
          *

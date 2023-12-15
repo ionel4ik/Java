@@ -1,6 +1,7 @@
 package Laba_1;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,16 +32,18 @@ public class Main {
         Employee employee1 = new Employee.EmployeeBuilder("Tanya")
                 .setSurname("Tkach")
                 .setMiddleName("Olegivna")
+                .setAnimals(List.of(animal3))
                 .setAge(LocalDate.of(1984,07,15))
                 .setPhoneNumber(990167811)
                 .setSalary(4500)
                 .setPassportNumber("18023")
                 .build();
-        System.out.println(employee1.toString());
+
 
         Employee  employee2 = new Employee.EmployeeBuilder("Maryana")
                 .setSurname("Mukutey")
                 .setMiddleName("Andriyivna")
+                .setAnimals(List.of(animal1,animal2))
                 .setAge(LocalDate.of(2000,04,12))
                 .setPhoneNumber(559383293)
                 .setSalary(5000)
@@ -79,21 +82,22 @@ public class Main {
                 .setPrice(7)
                 .build();
 
-
+        System.out.println("Animals:");
         System.out.println(animal1);
         System.out.println(animal2);
-        System.out.println(animal1.equals(animal2));
-        System.out.println(animal1.equals(animal3));
+        System.out.println(animal3);
+        System.out.println("");
 
+
+        System.out.println("Employee:");
         System.out.println(employee1);
         System.out.println(employee2);
-        System.out.println(employee1.equals(employee2));
-        System.out.println(employee1.equals(employee3));
+        System.out.println("");
 
+        System.out.println("Medicine:");
         System.out.println(medicine1);
         System.out.println(medicine2);
-        System.out.println(medicine1.equals(medicine2));
-        System.out.println(medicine1.equals(medicine3));
+        System.out.println("");
     }
 
 }// до класу

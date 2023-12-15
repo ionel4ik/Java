@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Medicine  {
   private String name;
-  private String company;// клас
-  private String country; // клас
+  private String company;
+  private String country;
   private float doseAmount;
   private int price;
 
