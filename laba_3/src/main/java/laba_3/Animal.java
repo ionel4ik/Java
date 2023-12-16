@@ -4,8 +4,10 @@ import jakarta.validation.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 
 public class Animal implements Comparable<Animal> {
@@ -13,20 +15,21 @@ public class Animal implements Comparable<Animal> {
     private String name;
 
     private String kind;
+
     @Positive(message = "Weight must be a positive number")
-
     private float weight;
-    @Positive(message = "Height must be a positive number")
 
+    @Positive(message = "Height must be a positive number")
     private float height;
+
     @Positive(message = "Width must be a positive number")
     private float width;
 
     private List<Medicine> medicines;
 
-   Animal(){
+    Animal() {
 
-   }
+    }
 
     /**
      * animal constructor
@@ -38,10 +41,10 @@ public class Animal implements Comparable<Animal> {
         this.height = builder.height;
         this.width = builder.width;
 
-       // this.medicines = builder.medicines;
+        // this.medicines = builder.medicines;
     }
 
-// без medicines
+    // без medicines
     @Override
     public String toString() {
         return name + " | " + kind + "  | " + weight + " | " + height + " | " + width;
@@ -74,14 +77,10 @@ public class Animal implements Comparable<Animal> {
     }
 
 
-
-
     /**
      * Builder pattern
      */
     public static class AnimalBuilder {
-
-
         private String name;
 
         private String kind = " ";
@@ -98,9 +97,9 @@ public class Animal implements Comparable<Animal> {
         private List<@Valid Medicine> medicines = new ArrayList<>();
 
 
-
         /**
          * Builder constructor with required parameters
+         *
          * @param name
          */
         public AnimalBuilder(String name) {
@@ -109,7 +108,7 @@ public class Animal implements Comparable<Animal> {
 
 
         // Setters:
-        private void validate() throws IllegalArgumentException{
+        private void validate() throws IllegalArgumentException {
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 
@@ -118,17 +117,19 @@ public class Animal implements Comparable<Animal> {
 
             StringBuilder mb = new StringBuilder();
 
-            for(ConstraintViolation<Animal> violation: violations){
+            for (ConstraintViolation<Animal> violation : violations) {
                 mb.append("Error for field ").append(violation.getPropertyPath()).append(": ").append(violation.getInvalidValue()).append(" ").append(violation.getMessage())
-                ;			}
+                ;
+            }
 
-            if(!mb.isEmpty()){
+            if (!mb.isEmpty()) {
                 throw new IllegalArgumentException(mb.toString());
             }
         }
 
         /**
          * Builder kind setter
+         *
          * @param kind
          * @return object
          */
@@ -156,26 +157,28 @@ public class Animal implements Comparable<Animal> {
 
         /**
          * Builder medicine setter
+         *
          * @return object
          */
-        public AnimalBuilder setMedicines(List<Medicine> medicines){
+        public AnimalBuilder setMedicines(List<Medicine> medicines) {
             this.medicines.addAll(medicines);
             return this;
         }
 
         /**
          * Builder product setter
+         *
          * @return object
          */
-        public AnimalBuilder setMedicine(Medicine medicine){
+        public AnimalBuilder setMedicine(Medicine medicine) {
             this.medicines.add(medicine);
             return this;
         }
 
 
-
         /**
          * Builder build method
+         *
          * @return instance of Employee class
          */
         public Animal build() {
@@ -230,10 +233,9 @@ public class Animal implements Comparable<Animal> {
     /**
      * medicines getter
      */
-   public List<Medicine> getMedicines(){
+    public List<Medicine> getMedicines() {
         return medicines;
-   }
-
+    }
 
 
 //Setters:
@@ -275,21 +277,15 @@ public class Animal implements Comparable<Animal> {
     }
 
 
-
-   // ---------------- оп
+    // ---------------- оп
 
     /**
      * medicine setter
      */
-   public void setMedicines(List<Medicine> medicines) { this.medicines = medicines; }
-
-
-
-
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines = medicines;
+    }
 
 
 } // до класу дужка
-
-
-
 

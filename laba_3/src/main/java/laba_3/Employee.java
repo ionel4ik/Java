@@ -8,32 +8,38 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-
 
 
 public class Employee {
     @NotBlank(message = "Name is mandatory")
     private String name;
+
     private String surname;
     private String middleName;
+
     @Positive(message = "Age must be a positive number")
     private int age;
+
     @Pattern(regexp = "\\d{10}", message = "Phone number must be a 10-digit number")
     private String phoneNumber;
+
     @Positive(message = "Salary must be a positive number")
     private float salary;
+
     @Pattern(regexp = "\\d{10}", message = "Passport number must be a 9-digit number")
     private String passportNumber;
 
+    private List<Animal> animals;
 
     /**
      * Employee constructor
+     *
      * @param builder
      */
-    private Employee(EmployeeBuilder builder){
+    private Employee(EmployeeBuilder builder) {
         this.name = builder.name;
         this.surname = builder.surname;
         this.middleName = builder.middleName;
@@ -41,16 +47,15 @@ public class Employee {
         this.phoneNumber = builder.phoneNumber;
         this.salary = builder.salary;
         this.passportNumber = builder.passportNumber;
+        this.animals = builder.animals;
     }
-
 
 
     @Override
     public String toString() {
-        return name + " | " + surname + " | " + middleName + " | " + age + " | " + phoneNumber + " | " + salary + " | " + passportNumber;
+        return name + " | " + surname + " | " + middleName + " | " + age + " | " +
+                phoneNumber + " | " + salary + " | " + passportNumber + " | " + animals;
     }
-
-
 
     @Override
     public boolean equals(Object obj) {
@@ -62,7 +67,6 @@ public class Employee {
                 employee.middleName.equals(this.middleName)
         );
     }
-
 
 
     @Override
@@ -83,7 +87,6 @@ public class Employee {
          * @param name is mandatory, others are optional
          */
 
-
         private String name;
 
         private String surname = " ";
@@ -102,6 +105,7 @@ public class Employee {
 
         private String passportNumber = " ";
 
+        private List<Animal> animals;
 
         /**
          * Builder constructor with required parameters
@@ -129,6 +133,7 @@ public class Employee {
 
         /**
          * Builder salary setter
+         *
          * @param middleName
          * @return object
          */
@@ -139,6 +144,7 @@ public class Employee {
 
         /**
          * Builder Age setter
+         *
          * @param age
          * @return object
          */
@@ -149,6 +155,7 @@ public class Employee {
 
         /**
          * Builder phoneNumber setter
+         *
          * @param phoneNumber
          * @return object
          */
@@ -167,7 +174,8 @@ public class Employee {
             this.salary = salary;
             return this;
         }
-        private void validate() throws IllegalArgumentException{
+
+        private void validate() throws IllegalArgumentException {
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 
@@ -176,16 +184,19 @@ public class Employee {
 
             StringBuilder mb = new StringBuilder();
 
-            for(ConstraintViolation<Employee> violation: violations){
+            for (ConstraintViolation<Employee> violation : violations) {
                 mb.append("Error for field ").append(violation.getPropertyPath()).append(": ").append(violation.getInvalidValue()).append(" ").append(violation.getMessage())
-                ;			}
+                ;
+            }
 
-            if(!mb.isEmpty()){
+            if (!mb.isEmpty()) {
                 throw new IllegalArgumentException(mb.toString());
             }
         }
+
         /**
          * Builder passportNumber setter
+         *
          * @param passportNumber
          * @return object
          */
@@ -194,11 +205,17 @@ public class Employee {
             return this;
         }
 
+        public EmployeeBuilder setAnimals(List<Animal> animals) {
+            this.animals = animals;
+            return this;
+        }
+
         /**
          * Builder build method
+         *
          * @return instance of Employee class
          */
-        public Employee build(){
+        public Employee build() {
             validate();
             return new Employee(this);
         }
@@ -208,38 +225,38 @@ public class Employee {
 
     // Getters:
 
-        /**
+    /**
      * name getter
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 
     /**
      * surname getter
      */
-    public String getSurname(){
+    public String getSurname() {
         return surname;
     }
 
     /**
      * middle_name getter
      */
-    public String getMiddleName (){
+    public String getMiddleName() {
         return middleName;
     }
 
     /**
      * age getter
      */
-    public int getAge(){
+    public int getAge() {
         return age;
     }
 
     /**
      * phone_number getter
      */
-    public String getPhoneNumber(){
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -247,7 +264,7 @@ public class Employee {
      * salary getter
      */
 
-    public float getSalary(){
+    public float getSalary() {
         return salary;
     }
 
@@ -255,50 +272,62 @@ public class Employee {
      * passport_number getter
      */
 
-    public String getPassportNumber(){
+    public String getPassportNumber() {
         return passportNumber;
     }
-
 
 
 //Setters:
 
 
-
     /**
      * name setter
      */
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * surname setter
      */
-    public void setSurname(String surname) { this.surname = surname; }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     /**
      * middle_name setter
      */
-    public void setMiddleName(String middle_name) { this.middleName = middle_name ; }
+    public void setMiddleName(String middle_name) {
+        this.middleName = middle_name;
+    }
 
     /**
      * age setter
      */
-    public void setAge(int age) { this.age = age; }
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     /**
      * phone_number setter
      */
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     /**
      * salary setter
      */
-    public void setSalary(float salary) { this.salary = salary; }
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
 
 
     /**
      * passport_number setter
      */
-    public void setPassportNumber(String passportNumber) { this.passportNumber = passportNumber; }
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
 
 }// до класу дужка

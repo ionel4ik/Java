@@ -1,6 +1,5 @@
 package laba_3;
 
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -9,11 +8,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 
-public class Medicine implements Comparable<Medicine>{
+public class Medicine implements Comparable<Medicine> {
     @NotBlank(message = "Name is mandatory")
     private String name;
     private String company;
@@ -21,18 +21,18 @@ public class Medicine implements Comparable<Medicine>{
     @Positive(message = "Dose amount must be a positive number")
     private float doseAmount;
     @Positive(message = "Price must be a positive number")
-    private double price;  // !!!
+    private double price;
     @PositiveOrZero(message = "Amount must be a positive number")
-    private int amount = 0;
+    private int amount;
     private String category;
-
-    // final
+    private List<Animal> animalsThatUse;
 
     /**
      * Medicine constructor
+     *
      * @param builder
      */
-    private Medicine(MedicineBuilder builder){
+    private Medicine(MedicineBuilder builder) {
         this.name = builder.name;
         this.company = builder.company;
         this.country = builder.country;
@@ -41,7 +41,7 @@ public class Medicine implements Comparable<Medicine>{
         this.amount = builder.amount;
         this.price = builder.price;
         this.category = builder.category;
-
+        this.animalsThatUse = animalsThatUse;
     }
 
 
@@ -56,7 +56,7 @@ public class Medicine implements Comparable<Medicine>{
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
-        Medicine medicine  = (Medicine ) obj;
+        Medicine medicine = (Medicine) obj;
         return (medicine.name.equals(this.name) &&
                 medicine.company.equals(this.company) &&
                 medicine.country.equals(this.country)
@@ -78,8 +78,6 @@ public class Medicine implements Comparable<Medicine>{
     }
 
 
-
-
     /**
      * Builder pattern
      */
@@ -94,7 +92,7 @@ public class Medicine implements Comparable<Medicine>{
         private double price = 0.0;
         private int amount = 0;
         private String category = "NULL";
-
+        private List<Animal> animalsThatUse;
 
 
 
@@ -102,11 +100,10 @@ public class Medicine implements Comparable<Medicine>{
          * Builder constructor with required parameters
          * params name
          */
-        public MedicineBuilder( String name){
+        public MedicineBuilder(String name) {
 
             this.name = name;
         }
-
 
 
         // Setters:
@@ -119,7 +116,6 @@ public class Medicine implements Comparable<Medicine>{
             this.company = company;
             return this;
         }
-
 
 
         public MedicineBuilder setCountry(String country) {
@@ -137,7 +133,8 @@ public class Medicine implements Comparable<Medicine>{
             this.doseAmount = doseAmount;
             return this;
         }
-        private void validate() throws IllegalArgumentException{
+
+        private void validate() throws IllegalArgumentException {
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 
@@ -146,16 +143,19 @@ public class Medicine implements Comparable<Medicine>{
 
             StringBuilder mb = new StringBuilder();
 
-            for(ConstraintViolation<Medicine> violation: violations){
+            for (ConstraintViolation<Medicine> violation : violations) {
                 mb.append("Error for field ").append(violation.getPropertyPath()).append(": ").append(violation.getInvalidValue()).append(" ").append(violation.getMessage())
-                ;			}
+                ;
+            }
 
-            if(!mb.isEmpty()){
+            if (!mb.isEmpty()) {
                 throw new IllegalArgumentException(mb.toString());
             }
         }
+
         /**
          * Builder price setter
+         *
          * @param
          * @return object
          */
@@ -167,6 +167,7 @@ public class Medicine implements Comparable<Medicine>{
 
         /**
          * Builder amount setter
+         *
          * @param amount
          * @return object
          */
@@ -175,17 +176,18 @@ public class Medicine implements Comparable<Medicine>{
             return this;
         }
 
-
-
-
-
+        public MedicineBuilder setAnimalsThatUse(List<Animal> animals) {
+            this.animalsThatUse = animals;
+            return this;
+        }
 
 
         /**
          * Builder build method
+         *
          * @return instance of Medicine class
          */
-        public Medicine build(){
+        public Medicine build() {
             validate();
             return new Medicine(this);
         }
@@ -193,19 +195,17 @@ public class Medicine implements Comparable<Medicine>{
     }// дужка builder
 
 
-
     // Getters:
 
 
-
-        /**
+    /**
      * name getter
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public double getPrice(){
+    public double getPrice() {
         return price;
     }
 
@@ -213,16 +213,15 @@ public class Medicine implements Comparable<Medicine>{
     /**
      * category getter
      */
-    public String getCategory(){
+    public String getCategory() {
         return category;
     }
-
 
 
     /**
      * company getter
      */
-    public String getCompany(){
+    public String getCompany() {
         return company;
     }
 
@@ -230,23 +229,22 @@ public class Medicine implements Comparable<Medicine>{
     /**
      * country getter
      */
-    public String getCountry  (){
-        return country  ;
+    public String getCountry() {
+        return country;
     }
 
     /**
      * dose_amount getter
      */
-    public  float getDoseAmount (){
+    public float getDoseAmount() {
         return doseAmount;
     }
 
 
-
     /**
-     *  amount getter
+     * amount getter
      */
-    public int getAmount(){
+    public int getAmount() {
         return amount;
     }
 
@@ -256,36 +254,44 @@ public class Medicine implements Comparable<Medicine>{
     /**
      * name setter
      */
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
-     *
      * company setter
      */
-    public void setCompany(String company) { this.company = company; }
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     /**
-     *  country setter
+     * country setter
      */
-    public void setCountry(String country) { this. country =  country ; }
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     /**
      * dose_amount setter
      */
-    public void setDoseAmount(float dose_amount) { this.doseAmount = dose_amount; }
+    public void setDoseAmount(float dose_amount) {
+        this.doseAmount = dose_amount;
+    }
 
     /**
      * price setter
      */
-    public void setPrice(int price ) { this.price  = price ; }
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     /**
      * amount setter
      */
-    public void setAmount(int amount) { this.amount = amount; }
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
 
 }// до класу дужка
-
-
-
